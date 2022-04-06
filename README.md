@@ -25,7 +25,8 @@ $ npm run start:prod
 ```
 
 ## Documentation
-- 0.0.0.0:{PORT}/api-doc/
+You can access documentation at:
+0.0.0.0:{PORT}/api-doc/
 
 ## Test
 
