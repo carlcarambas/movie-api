@@ -1,26 +1,26 @@
 import {
-  Res,
+  // Res,
   Body,
   Controller,
   Get,
   Post,
-  UsePipes,
-  ValidationPipe,
+  // UsePipes,
+  // ValidationPipe,
   HttpStatus,
 } from '@nestjs/common';
 import {
-  ApiBadGatewayResponse,
+  // ApiBadGatewayResponse,
   ApiInternalServerErrorResponse,
   ApiOkResponse,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Response } from 'express';
+// import { Response } from 'express';
 import { Observable } from 'rxjs';
-import { CreateMovieDto } from 'src/models/create_movie.dto';
-import { MovieEntity } from 'src/models/movie.entity';
-import { MovieI } from 'src/models/movie.interface';
-import { MoviesService } from 'src/movies/services/movies/movies.service';
+// import { CreateMovieDto } from 'src/models/create_movie.dto';
+import { MovieEntity } from '../../../models/movie.entity';
+import { MovieI } from '../../../models/movie.interface';
+import { MoviesService } from '../../services/movies/movies.service';
 
 @Controller('movies')
 export class MoviesController {

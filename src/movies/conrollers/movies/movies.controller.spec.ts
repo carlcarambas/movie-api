@@ -1,5 +1,21 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MoviesController } from './movies.controller';
+import { MoviesService } from '../../services/movies/movies.service';
+
+const mockMoviesService = {
+  findAll: jest.fn((dto) => {
+    return [];
+  }),
+  addMovie: jest.fn((dto) => {
+    return {
+      id: 1,
+      released: new Date().toDateString(),
+      genre: '',
+      director: '',
+      ...dto,
+    };
+  }),
+};
 
 describe('MoviesController', () => {
   let controller: MoviesController;
@@ -7,12 +23,34 @@ describe('MoviesController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [MoviesController],
-    }).compile();
+      providers: [MoviesService],
+    })
+      .overrideProvider(MoviesService)
+      .useValue(mockMoviesService)
+      .compile();
 
     controller = module.get<MoviesController>(MoviesController);
   });
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
+  });
+
+  it('should create a movie', () => {
+    expect(controller.addMovie({ title: 'My Movie' })).toEqual({
+      id: expect.any(Number),
+      title: 'My Movie',
+      director: expect.any(String),
+      genre: expect.any(String),
+      released: expect.any(String),
+    });
+
+    expect(mockMoviesService.addMovie).toHaveBeenCalled();
+  });
+
+  it('should fetch all movies', () => {
+    expect(typeof controller.findAll()).toBe('object');
+    expect(controller.findAll()).toMatchObject([]);
+    expect(mockMoviesService.findAll).toHaveBeenCalled();
   });
 });
