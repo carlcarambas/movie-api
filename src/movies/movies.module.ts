@@ -1,12 +1,18 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from 'src/auth/auth.module';
+import { CheckTokenMiddleware } from 'src/middlewares/check-token.middleware';
 import { MovieEntity } from 'src/models/movie.entity';
 import { MoviesController } from './conrollers/movies/movies.controller';
 import { MoviesService } from './services/movies/movies.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([MovieEntity])],
+  imports: [AuthModule, TypeOrmModule.forFeature([MovieEntity])],
   controllers: [MoviesController],
   providers: [MoviesService],
 })
-export class MoviesModule {}
+export class MoviesModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(CheckTokenMiddleware).forRoutes(MoviesController);
+  }
+}

@@ -45,4 +45,12 @@ export class MovieEntity {
   @IsOptional()
   @IsString()
   director?: string;
+
+  @Column({ nullable: true, default: null })
+  @ApiProperty({
+    description: `User ID of the movie creator`,
+    example: 1,
+  })
+  @IsOptional()
+  createdBy: number;
 }
