@@ -20,7 +20,7 @@ import {
 } from '@nestjs/swagger';
 import { Response } from 'express';
 import { Observable } from 'rxjs';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
 // import { CreateMovieDto } from 'src/models/create_movie.dto';
 import { MovieEntity } from '../../../models/movie.entity';
 import { MovieI } from '../../../models/movie.interface';
