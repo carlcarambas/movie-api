@@ -18,6 +18,18 @@ const mockMoviesService = {
   }),
 };
 
+const mockRequest = (sessionData, body) => ({
+  session: { data: sessionData },
+  body,
+});
+
+const mockResponse = () => {
+  const res: any = {};
+  res.status = jest.fn().mockReturnValue(res);
+  res.json = jest.fn().mockReturnValue(res);
+  return res;
+};
+
 describe('MoviesController', () => {
   let controller: MoviesController;
 
@@ -37,22 +49,29 @@ describe('MoviesController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should create a movie', () => {
-    let request: Request;
-    let response: Response;
-    // expect.assertions(1);
+  it('should create a movie', async () => {
+    const request = {
+      user: {
+        userId: 11,
+        role: 'basic',
+        name: 'Test User',
+        username: 'UserName',
+        password: 'Secret',
+      },
+    };
 
-    expect(
-      controller.addMovie(request, response, { title: 'My Movie' }),
-    ).resolves.toEqual({
-      id: expect.any(Number),
+    // expect.assertions(1);
+    const res = mockResponse();
+
+    await controller.addMovie(request, res, {
       title: 'My Movie',
-      director: expect.any(String),
-      genre: expect.any(String),
-      released: expect.any(String),
     });
 
-    // expect(mockMoviesService.addMovie).toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(200);
+
+    expect(res.json).toHaveBeenCalled();
+
+    expect(mockMoviesService.addMovie).toHaveBeenCalled();
   });
 
   it('should fetch all movies', () => {
