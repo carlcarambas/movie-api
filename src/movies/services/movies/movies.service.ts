@@ -7,7 +7,7 @@ import { MovieI } from '../../../models/movie.interface';
 import { Repository } from 'typeorm';
 import { UserI } from 'src/models/user.interface';
 import { HttpService } from '@nestjs/axios';
-import { Movie } from 'src/models/movie.model';
+import { Movie } from '../../../models/movie.model';
 
 @Injectable()
 export class MoviesService {
