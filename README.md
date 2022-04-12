@@ -5,7 +5,7 @@ A movie api
 ## Installation
 
 ```bash
-$ npm install
+$ yarn
 ```
 
 ## Running the app
@@ -13,13 +13,6 @@ $ npm install
 ```bash
 # docker compose
 $ docker-compose up or APP_PORT={PORT} docker-compose up
-
-# development
-$ yarn start
-
-# watch mode
-$ yarn start:dev
-
 ```
 
 ## Documentation
